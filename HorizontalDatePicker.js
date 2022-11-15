@@ -102,8 +102,8 @@ export default class HorizontalDatePicker extends Component {
           isCurrentFoundTime = true;
         }
       });
-      if (!isCurrentFoundTime) newDateArray[0].isSelected = true;
-    } else if (timeArray.length > 0) newTimeArray[0].isSelected = true;
+    if (!isCurrentFoundTime) newDateArray[0].isSelected = false;
+    } else if (timeArray.length > 0) newTimeArray[0].isSelected = false;
     if ((pickerType === 'date' || pickerType == 'datetime') && onDateSelected) {
       if (defaultSelected && isCurrentFoundDate) {
         onDateSelected(moment(defaultSelected).format(returnDateFormat));
@@ -147,6 +147,22 @@ export default class HorizontalDatePicker extends Component {
       arrayTimes: newTimeArray,
       yearSelected: newDateArray.length > 0 && newDateArray[0].year,
     });
+
+    let d = moment(defaultSelected).format('DD');
+
+    if (d >=1 && d <=6) {
+      this.dateFlatList.scrollToOffset({ animated: true, offset: 0 });
+    } else if (d >=7 && d <12) {
+      this.dateFlatList.scrollToOffset({ animated: true, offset: 300 });
+    } else if (d >=12 && d <18) {
+      this.dateFlatList.scrollToOffset({ animated: true, offset: 600 });
+    } else if (d >=18 && d <22) {
+      this.dateFlatList.scrollToOffset({ animated: true, offset: 900 });
+    } else if (d >=22 && d <26) {
+      this.dateFlatList.scrollToOffset({ animated: true, offset: 1200 });
+    } else if (d >=26 && d <=31) {
+      this.dateFlatList.scrollToOffset({ animated: true, offset: 1500 });
+    }
   };
 
   getDateList = (minDate, maxDate) => {
@@ -334,6 +350,10 @@ export default class HorizontalDatePicker extends Component {
     );
   };
 
+  setDateFlatListRef = element => {
+    this.dateFlatList = element;
+  };
+
   setTimeFlatListRef = element => {
     this.timeFlatList = element;
   };
@@ -378,6 +398,7 @@ export default class HorizontalDatePicker extends Component {
           <ImageBackground style={[styles.datePickerContainer, datePickerContainerStyle]} source={datePickerBG || null}>
             <FlatList
               horizontal
+              ref={this.setDateFlatListRef}
               style={styles.flatListStyle}
               data={arrayDates}
               renderItem={this.renderDateItem}
