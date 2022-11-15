@@ -31,14 +31,16 @@ const styles = StyleSheet.create({
   flatListStyle: {
     marginHorizontal: 10,
   },
-  itemViewStyle: {
+  itemViewStyle: (value) => ({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 5,
     paddingHorizontal: 10,
     marginHorizontal: 5,
-  },
+    backgroundColor: value ? '#ffffff' : 'transparent',
+    borderRadius: 15,
+  }),
   textSelected: {
     fontSize: 15,
     color: '#f44336',

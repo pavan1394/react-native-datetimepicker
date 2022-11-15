@@ -315,7 +315,7 @@ export default class HorizontalDatePicker extends Component {
     const { selectedTextStyle, unSelectedTextStyle } = this.props;
 
     return (
-      <TouchableOpacity style={styles.itemViewStyle} onPress={this.onPressDate(item)}>
+      <TouchableOpacity style={styles.itemViewStyle(item.isSelected)} onPress={this.onPressDate(item)}>
         <Text
           style={
             item.isSelected ? [styles.textSelected, selectedTextStyle] : [styles.textUnSelected, unSelectedTextStyle]
